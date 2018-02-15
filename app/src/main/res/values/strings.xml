@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimpleFirmata</string>
+    <string name="servo_send">Send</string>
+    <string name="LED_on">ON</string>
+    <string name="LED_off">OFF</string>
+    <string name="LED_text">LED status:</string>
 </resources>
