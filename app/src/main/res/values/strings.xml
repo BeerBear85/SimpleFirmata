@@ -3,5 +3,6 @@
     <string name="servo_send">Send</string>
     <string name="LED_on">ON</string>
     <string name="LED_off">OFF</string>
-    <string name="LED_text">LED status:</string>
+    <string name="LED_1_text">LED 1 status:</string>
+    <string name="LED_2_text">LED 2 status:</string>
 </resources>

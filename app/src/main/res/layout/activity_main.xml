@@ -10,15 +10,12 @@
         android:id="@+id/servo_order_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="24dp"
         android:ems="10"
         android:inputType="numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/LED_text_view"
+        app:layout_constraintBaseline_toBaselineOf="@+id/servo_send_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="123" />
 
     <Button
@@ -27,38 +24,91 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:onClick="sendServoCommand"
         android:text="@string/servo_send"
-        app:layout_constraintBaseline_toBaselineOf="@+id/servo_order_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/servo_order_number" />
+        app:layout_constraintStart_toEndOf="@+id/servo_order_number"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
-        android:id="@+id/LED_toggle_button"
+        android:id="@+id/LED_1_toggle_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:checked="false"
-        android:onClick="sendLEDCommand"
+        android:onClick="sendLED1Command"
         android:text="ToggleButton"
         android:textOff="@string/LED_off"
         android:textOn="@string/LED_on"
-        app:layout_constraintBaseline_toBaselineOf="@+id/LED_text_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ServoSweepToggleButton"
+        tools:clickable="false" />
+
+    <ToggleButton
+        android:id="@+id/LED_2_toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:checked="false"
+        android:onClick="sendLED1Command"
+        android:text="ToggleButton"
+        android:textOff="@string/LED_off"
+        android:textOn="@string/LED_on"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LED_1_toggle_button" />
         tools:clickable="false" />
 
     <TextView
-        android:id="@+id/LED_text_view"
+        android:id="@+id/LED_1_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="146dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/LED_text"
-        app:layout_constraintEnd_toStartOf="@+id/LED_toggle_button"
+        android:text="@string/LED_1_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/LED_1_toggle_button"
+        app:layout_constraintEnd_toStartOf="@+id/LED_1_toggle_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/servo_order_number" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/LED_2_text_view"
+        android:layout_width="126dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:layout_marginStart="84dp"
+        android:text="@string/LED_2_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/LED_2_toggle_button"
+        app:layout_constraintEnd_toStartOf="@+id/LED_2_toggle_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/ServoSweepToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="controlServoSweep"
+        android:text="ToggleButton"
+        android:textOff="@string/LED_off"
+        android:textOn="@string/LED_on"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/servo_send_button" />
+
+    <TextView
+        android:id="@+id/SevoSweepTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="97dp"
+        android:text="Servo Sweep"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ServoSweepToggleButton"
+        app:layout_constraintEnd_toStartOf="@+id/ServoSweepToggleButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
