@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import org.shokai.firmata.*;
@@ -18,7 +20,10 @@ public class MainActivity extends AppCompatActivity {
     public int mServoPin = 3;
     public int mLedPin1 = 13;
     public int mLedPin2 = 11;
-    Thread mServoThread;
+    private Thread mServoThread;
+
+    private SeekBar mServoSweepSpeedSeekBar;
+    private TextView mServoSweepSpeedTextView;
 
 
     @Override
@@ -30,6 +35,37 @@ public class MainActivity extends AppCompatActivity {
         mServoControl = new ServoControlClass(mArduino, mServoPin);
         mServoThread = new Thread(mServoControl);
         mServoThread.start();
+
+
+        //Sweep speed seekbar handling
+        mServoSweepSpeedSeekBar = (SeekBar) findViewById(R.id.ServoSweepSpeedSeekBar);
+        mServoSweepSpeedTextView = (TextView) findViewById(R.id.ServoSweepSpeedTextView);
+        mServoSweepSpeedTextView.setText( String.valueOf(mServoSweepSpeedSeekBar.getProgress()) );
+        mServoSweepSpeedSeekBar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    int tmpProgress = 0;
+                    @Override
+                    public void onProgressChanged(SeekBar argSeekBar, int argProgresValue, boolean argFromUser) {
+                        tmpProgress = argProgresValue;
+                        mServoSweepSpeedTextView.setText( String.valueOf(tmpProgress) );
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        // Do something here,
+                        //if you want to do anything at the start of
+                        // touching the seekbar
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        // Display the value in textview
+                        mServoSweepSpeedTextView.setText( String.valueOf(tmpProgress) );
+                       mServoControl.setSweepSpeed((double)tmpProgress);
+                    }
+                });
+
+
 
         try{
             mArduino.connect();
