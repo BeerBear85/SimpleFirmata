@@ -37,14 +37,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:checked="false"
         android:onClick="sendLED1Command"
-        android:text="ToggleButton"
         android:textOff="@string/LED_off"
         android:textOn="@string/LED_on"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ServoSweepToggleButton"
+        app:layout_constraintTop_toBottomOf="@+id/ServoSweepSpeedSeekBar"
         tools:clickable="false" />
 
     <ToggleButton
@@ -52,10 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:checked="false"
-        android:onClick="sendLED1Command"
-        android:text="ToggleButton"
+        android:onClick="sendLED2Command"
         android:textOff="@string/LED_off"
         android:textOn="@string/LED_on"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="24dp"
         android:text="@string/LED_1_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/LED_1_toggle_button"
         app:layout_constraintEnd_toStartOf="@+id/LED_1_toggle_button"
@@ -76,14 +74,14 @@
 
     <TextView
         android:id="@+id/LED_2_text_view"
-        android:layout_width="126dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
-        android:layout_marginStart="84dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="24dp"
         android:text="@string/LED_2_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/LED_2_toggle_button"
         app:layout_constraintEnd_toStartOf="@+id/LED_2_toggle_button"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ToggleButton
@@ -93,7 +91,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:onClick="controlServoSweep"
-        android:text="ToggleButton"
         android:textOff="@string/LED_off"
         android:textOn="@string/LED_on"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,12 +100,43 @@
         android:id="@+id/SevoSweepTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="97dp"
-        android:text="Servo Sweep"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ServoSweepToggleButton"
-        app:layout_constraintEnd_toStartOf="@+id/ServoSweepToggleButton"
+        android:layout_marginEnd="98dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/servo_sweep_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ServoSweepSpeedTextView"
+        app:layout_constraintEnd_toStartOf="@+id/ServoSweepSpeedTextView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/ServoSweepSpeedSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ServoSweepToggleButton"
+        android:progress="@string/servoSweepSpeedSeekbarDefaultValue"
+        android:max="@string/servoSweepSpeedSeekbarMax" />
+
+    <TextView
+        android:id="@+id/ServoSweepSpeedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/servoSweepSpeedSeekbarDefaultValue"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ServoSweepSpeedUnit"
+        app:layout_constraintEnd_toStartOf="@+id/ServoSweepSpeedUnit" />
+
+    <TextView
+        android:id="@+id/ServoSweepSpeedUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/servoSweepSpeedUnit"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ServoSweepToggleButton"
+        app:layout_constraintEnd_toStartOf="@+id/ServoSweepToggleButton" />
 
 </android.support.constraint.ConstraintLayout>

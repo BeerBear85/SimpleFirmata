@@ -5,4 +5,5 @@
     <string name="LED_off">OFF</string>
     <string name="LED_1_text">LED 1 status:</string>
     <string name="LED_2_text">LED 2 status:</string>
+    <string name="servo_sweep_text">Servo Sweep</string>
 </resources>

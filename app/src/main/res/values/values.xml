@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="servoSweepSpeedSeekbarDefaultValue">20</string>
+    <string name="servoSweepSpeedSeekbarMax">300</string>
+    <string name="servoSweepSpeedUnit">deg/s</string>
+</resources>

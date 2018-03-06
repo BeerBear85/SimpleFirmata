@@ -9,33 +9,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import org.shokai.firmata.*;
-
-import java.io.IOException;
-
 public class MainActivity extends AppCompatActivity {
 
-    public ArduinoFirmata mArduino;
-    public ServoControlClass mServoControl;
-    public int mServoPin = 3;
-    public int mLedPin1 = 13;
-    public int mLedPin2 = 11;
-    private Thread mServoThread;
-
+    public BearArduinoPlatform mHWPlatform;
     private SeekBar mServoSweepSpeedSeekBar;
     private TextView mServoSweepSpeedTextView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mArduino = new ArduinoFirmata(this);
-        mServoControl = new ServoControlClass(mArduino, mServoPin);
-        mServoThread = new Thread(mServoControl);
-        mServoThread.start();
-
+        mHWPlatform = new BearArduinoPlatform(this);
 
         //Sweep speed seekbar handling
         mServoSweepSpeedSeekBar = (SeekBar) findViewById(R.id.ServoSweepSpeedSeekBar);
@@ -61,21 +46,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         // Display the value in textview
                         mServoSweepSpeedTextView.setText( String.valueOf(tmpProgress) );
-                       mServoControl.setSweepSpeed((double)tmpProgress);
+                        mHWPlatform.mServo.setSweepSpeed((double)tmpProgress);
                     }
                 });
 
-
-
-        try{
-            mArduino.connect();
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-        catch(InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void sendServoCommand(View arg_view) {
@@ -87,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "sendServoCommand(): " + tmpServoOrderString);
 
         int tmpAngle = Integer.parseInt( tmpServoOrderString ); //degree
-        mServoControl.setServoAngle(tmpAngle);
+        mHWPlatform.mServo.setServoAngle(tmpAngle);
     }
 
     public void sendLED1Command(View arg_view) {
@@ -95,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         ToggleButton tmpToggle = (ToggleButton)arg_view;
         Log.d("MainActivity", "sendLED1Command(): " + String.valueOf(tmpToggle.isChecked()) );
 
-        mArduino.digitalWrite(mLedPin1, tmpToggle.isChecked() );
+        mHWPlatform.mLED1.EnableBlink( tmpToggle.isChecked() );
     }
 
     public void sendLED2Command(View arg_view) {
@@ -103,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         ToggleButton tmpToggle = (ToggleButton)arg_view;
         Log.d("MainActivity", "sendLED2Command(): " + String.valueOf(tmpToggle.isChecked()) );
 
-        mArduino.digitalWrite(mLedPin2, tmpToggle.isChecked() );
+        mHWPlatform.mLED2.EnableBlink( tmpToggle.isChecked() );
     }
 
     public void controlServoSweep(View arg_view) {
@@ -112,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "controlServoSweep(): " + String.valueOf(tmpToggle.isChecked()) );
 
         if (tmpToggle.isChecked()){
-            mServoControl.mEnableSweep = true;
+            mHWPlatform.mServo.mEnableSweep = true;
         } else {
-            mServoControl.mEnableSweep = false;
+            mHWPlatform.mServo.mEnableSweep = false;
         }
     }
 }
