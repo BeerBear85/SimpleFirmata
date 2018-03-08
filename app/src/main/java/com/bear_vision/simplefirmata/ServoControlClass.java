@@ -16,6 +16,7 @@ public class ServoControlClass implements Runnable {
 
 
     //Servo/Arduino HW config
+    private double mServoMinAngle = 0.0;
     private double mServoMaxAngle = 180.0;
     private double mMaxCommand = 169.0;
     private double mMinCommand = 15.0;
@@ -27,6 +28,8 @@ public class ServoControlClass implements Runnable {
     private double mSweepSpeed = 50; //deg/s
     private int mSweepDeltaTime = 100; //[ms]
     private boolean mPositiveSweepDirection = true; //Start direction
+    private double mSweepMinAngle = 0;
+    private double mSweepMaxAngle = mServoMaxAngle;
     private double mSweepAngleDelta = mSweepSpeed * 0.001 * (double)mSweepDeltaTime; //Step size
 
 
@@ -52,14 +55,14 @@ public class ServoControlClass implements Runnable {
         } else {
             mCurrentAngle -= mSweepAngleDelta;
         }
-        if (mCurrentAngle >= mServoMaxAngle) {
-            mCurrentAngle = mServoMaxAngle;
+        if (mCurrentAngle >= mSweepMaxAngle) {
+            mCurrentAngle = mSweepMaxAngle;
             mPositiveSweepDirection = false;
-        } else if (mCurrentAngle <= 0) {
-            mCurrentAngle = 0;
+        } else if (mCurrentAngle <= mSweepMinAngle) {
+            mCurrentAngle = mSweepMinAngle;
             mPositiveSweepDirection = true;
         }
-        setServoAngle((int)mCurrentAngle);
+        setServoAngle(mCurrentAngle);
     }
 
     public void setSweepSpeed(double arg_sweep_speed) {
@@ -68,14 +71,25 @@ public class ServoControlClass implements Runnable {
         mSweepAngleDelta = mSweepSpeed * (0.001 * (double)mSweepDeltaTime); //Step size
     }
 
+    public void setSweepRange(double argMinAngle, double argMaxAngle)
+    {
+        mSweepMinAngle = argMinAngle;
+        mSweepMaxAngle = argMaxAngle;
+    }
 
-    public void setServoAngle(int arg_angle) {
+
+    public void setServoAngle(double arg_angle) {
         Log.d("ServoControlClass", "setServoAngle angle: " + String.valueOf(arg_angle) );
         if(arg_angle > mServoMaxAngle)
-            arg_angle = (int)mServoMaxAngle;
+            arg_angle = mServoMaxAngle;
+        else if (arg_angle < mServoMinAngle)
+            arg_angle = mServoMinAngle;
+
+        mCurrentAngle = arg_angle;
 
         double tmpServoCommand = arg_angle*mConversionFactor + mMinCommand;
         mArduino.servoWrite(mServoPin, (int)tmpServoCommand ); //function input range: 15 -> 169  = 154 = 180 degree
     }
+
 
 }

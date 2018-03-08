@@ -52,10 +52,4 @@ public class BearArduinoPlatform {
         mLED2Thread.start();
     }
 
-
-    public void ToggleLED2(boolean arg_value)
-    {
-        mArduino.digitalWrite(mLedPin1, arg_value);
-    }
-
 }

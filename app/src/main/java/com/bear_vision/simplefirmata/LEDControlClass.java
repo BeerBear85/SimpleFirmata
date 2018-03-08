@@ -45,6 +45,11 @@ public class LEDControlClass implements Runnable {
 
     public void EnableBlink(boolean arg_value) {
         mEnableBlink = arg_value;
+        //Finish with the LED off
+        if (!arg_value){
+            SetLED(false);
+        }
+
     }
 }
 
