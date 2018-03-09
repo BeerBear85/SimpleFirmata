@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import com.bear_vision.beararduinoplatform.*;
 
 public class MainActivity extends AppCompatActivity {
 
